@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const router = express.Router();
 const bodyParser = require('body-parser');
 const handlebarsExpress = require('express-handlebars')
-
+const db = require('./db')
 app.use( bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const hbs = handlebarsExpress.create(
@@ -35,12 +35,7 @@ app.get('/about',(req, res) =>{
     res.send('testabout')
 })
 
-app.post('/', (req, res) => {
-    sendFile(__dirname + '/')
-})
 
-// MONTOWANIE ROUTERA
-app.use(router);
 
 
 
@@ -48,12 +43,6 @@ app.use(router);
 app.listen(PORT, ()=> {console.log('server start 3500')})
 
 
-// POLONCZENIE Z BD appTest
-main().catch(err => console.log(err));
-async function main() { 
-  await mongoose.connect('mongodb://127.0.0.1:27017/appTest'), 
- console.log('connect db')
-}
 
 // TWORZE SCHEMA
 const schemaTest = new mongoose.Schema({
